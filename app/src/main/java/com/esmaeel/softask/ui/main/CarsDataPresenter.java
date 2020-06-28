@@ -43,6 +43,8 @@ public class CarsDataPresenter {
                             if (Utils.isNotEmptyOrNull(carsResponseModel.getData())) {
                                 viewModel.setCarsData(carsResponseModel);
                             }
+                        }else {
+                            viewModel.setErrorMessage(carsResponseModel.getError().getMessage());
                         }
                         viewModel.setIsLoading(false);
                     }

@@ -6,6 +6,36 @@ public class CarsResponseModel {
 
     private Integer status;
     private ArrayList<DataBean> data;
+    private ErrorBean error;
+
+    public ErrorBean getError() {
+        return error;
+    }
+
+    public void setError(ErrorBean error) {
+        this.error = error;
+    }
+
+    public static class ErrorBean {
+        private int code;
+        private String message;
+
+        public int getCode() {
+            return code;
+        }
+
+        public void setCode(int code) {
+            this.code = code;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
 
     public int getStatus() {
         return status;
