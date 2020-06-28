@@ -3,11 +3,8 @@ package com.esmaeel.softask.data.remote;
 import android.app.Activity;
 import android.content.Context;
 
-import androidx.viewbinding.BuildConfig;
-
-import com.esmaeel.softask.R;
+import com.esmaeel.softask.BuildConfig;
 import com.esmaeel.softask.Utils.Constants;
-import com.esmaeel.softask.Utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -26,29 +23,24 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApiManager {
+public class ApiManagerDefault {
     private WebService apiService;
     private Gson gson;
     private Retrofit retrofit;
     private OkHttpClient okHttpAuthClient, okHttpLocalClient;
 
 
-    public WebService getApiService(){
+    public WebService getApiService() {
         return apiService;
     }
 
-    /*
-     * return a retrofit instance with Auth interceptor added to okhttp
-     * */
-    public ApiManager(Context authContext) {
+
+    public ApiManagerDefault(Context authContext) {
         apiService = getRetrofit(getHttpAuthClient(authContext)).create(WebService.class);
     }
 
 
-    /*
-     * return a retrofit instance with only Langugae interceptor added to okhttp
-     * */
-    public ApiManager(Activity localContextActivity) {
+    public ApiManagerDefault(Activity localContextActivity) {
         apiService = getRetrofit(getHttpLocalClient(localContextActivity)).create(WebService.class);
     }
 
@@ -76,8 +68,8 @@ public class ApiManager {
             // will send "" empty string if token is null.
             return chain.proceed(chain.request().newBuilder()
                     .header("timezone", TimeZone.getDefault().getID())
-                    .header("locale", Utils.getLocalLanguage(context))
-/*                    .header("Authorization", PrefUtils.getUserToken(context))*/
+//                    .header("locale", MyUtil.getLocalLanguage(context))
+//                    .header("Authorization", PrefUtils.getUserToken(context))
                     .method(original.method(), original.body())
                     .build());
 
@@ -89,7 +81,7 @@ public class ApiManager {
             Request original = chain.request();
             return chain.proceed(chain.request().newBuilder()
                     .header("timezone", TimeZone.getDefault().getID())
-                    .header("locale", Utils.getLocalLanguage(context))
+//                    .header("locale", MyUtil.getLocalLanguage(context))
                     .method(original.method(), original.body())
                     .build());
 
@@ -105,20 +97,21 @@ public class ApiManager {
             Response response = chain.proceed(request);
             switch (response.code()) {
                 case 200:
-                    if (isFakeResponse(response))
-                        return getCustomResponse(request, context.getString(R.string.html_error), 402);
-                    else return response;
+//                    if (isFakeResponse(response))
+//                        return getCustomResponse(request, context.getString(R.string.html_error), 402);
+//                    else
+                    return response;
                 case 429:
-                    /* return getCustomResponse(request, context.getString(R.string.html_error), 402);*/
+//                    return getCustomResponse(request, context.getString(R.string.html_error), 402);
                 case 404:
                 case 503:
                 case 500:
                     // open ServerError Activity
-                    /*MyUtil.showServerErrorDialog(context);*/
+//                    MyUtil.showServerErrorDialog(context);/**/
                     break;
                 case 401:
                     // send user to login page
-                    /*MyUtil.loginAgain(context);*/
+//                    MyUtil.loginAgain(context);
                     break;
             }
             return response;
@@ -126,12 +119,6 @@ public class ApiManager {
         };
     }
 
-    /*
-     * @param request
-     * @param errorMessage custom message
-     * @param statusCode custom status code
-     * @return custom response with
-     */
     static Response getCustomResponse(Request request, String errorMessage, Integer statusCode) {
         ResponseBody message =
                 ResponseBody.create(
@@ -152,10 +139,6 @@ public class ApiManager {
                 .build();
     }
 
-    /**
-     * @param response response maybe redirected in case of TeData subscriptions finished
-     * @return true or false if the content type is html
-     */
     private boolean isFakeResponse(Response response) {
         String header = response.headers().get("Content-Type");
         return header == null || (header.contains("html"));
@@ -197,7 +180,7 @@ public class ApiManager {
     public Retrofit getRetrofit(OkHttpClient client) {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BuildConfig.DEBUG ? Constants.DEVELOPMENT_BASE_URL : Constants.PRODUCTIONS_BASE_URL)
+                    .baseUrl(Constants.PRODUCTIONS_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(getGson()))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(client)

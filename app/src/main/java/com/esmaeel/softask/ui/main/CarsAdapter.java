@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.esmaeel.softask.Utils.Utils;
 import com.esmaeel.softask.data.Models.CarsResponseModel;
 import com.esmaeel.softask.databinding.CarAdapterItemBinding;
@@ -67,6 +68,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.CarHolder> {
             binder.brand.setText(model.getBrand());
             binder.carStatus.setText(model.getUsedStatus());
             binder.year.setText(model.getConstructionYear());
+            Glide.with(binder.carImage).load(model.getImageUrl()).into(binder.carImage);
         }
     }
 

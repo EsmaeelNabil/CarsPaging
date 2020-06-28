@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.esmaeel.softask.Utils.EndlessRecyclerOnScrollListener;
 import com.esmaeel.softask.Utils.Utils;
 import com.esmaeel.softask.data.Models.CarsResponseModel;
-import com.esmaeel.softask.data.remote.ApiManager;
+import com.esmaeel.softask.data.remote.ApiManagerDefault;
 import com.esmaeel.softask.data.remote.WebService;
 import com.esmaeel.softask.databinding.ActivityMainBinding;
 
@@ -30,7 +30,7 @@ public class CarsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binder = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binder.getRoot());
-        mService = new ApiManager(this).getApiService();
+        mService = new ApiManagerDefault(CarsActivity.this).getApiService();
         initData();
         initViews();
     }
