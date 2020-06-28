@@ -22,7 +22,6 @@ public class CarsActivity extends AppCompatActivity {
     private CarsAdapter carsAdapter;
     private WebService mService;
     private int pageNumber = 1;
-    private Boolean hasMore = false;
     private EndlessRecyclerOnScrollListener pagingListener;
 
     @Override
@@ -54,10 +53,8 @@ public class CarsActivity extends AppCompatActivity {
         pagingListener = new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore(int currentPage, int visibleItemPosition) {
-                if (hasMore) {
                     pageNumber = currentPage;
                     getCarsData(pageNumber);
-                }
             }
         };
         binder.carsRecycler.addOnScrollListener(pagingListener);
