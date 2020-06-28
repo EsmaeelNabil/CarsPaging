@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.esmaeel.softask.data.Models.CarsResponseModel;
 
-class CarsViewModel extends BaseViewModel {
+public class CarsViewModel extends BaseViewModel {
 
     private MutableLiveData<CarsResponseModel> carsData = new MutableLiveData<>();
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();

@@ -72,7 +72,7 @@ public class Utils {
         try {
             errorModel = gson.fromJson(errorBody.string(), ErrorModel.class);
             errorMsg = errorModel.getError().getMessage();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return errorMsg;
         }
