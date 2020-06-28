@@ -7,6 +7,7 @@ import androidx.viewbinding.BuildConfig;
 
 import com.esmaeel.softask.R;
 import com.esmaeel.softask.Utils.Constants;
+import com.esmaeel.softask.Utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -31,6 +32,10 @@ public class ApiManager {
     private Retrofit retrofit;
     private OkHttpClient okHttpAuthClient, okHttpLocalClient;
 
+
+    public WebService getApiService(){
+        return apiService;
+    }
 
     /*
      * return a retrofit instance with Auth interceptor added to okhttp
@@ -71,8 +76,8 @@ public class ApiManager {
             // will send "" empty string if token is null.
             return chain.proceed(chain.request().newBuilder()
                     .header("timezone", TimeZone.getDefault().getID())
-                    .header("locale", MyUtil.getLocalLanguage(context))
-                    .header("Authorization", PrefUtils.getUserToken(context))
+                    .header("locale", Utils.getLocalLanguage(context))
+/*                    .header("Authorization", PrefUtils.getUserToken(context))*/
                     .method(original.method(), original.body())
                     .build());
 
@@ -84,7 +89,7 @@ public class ApiManager {
             Request original = chain.request();
             return chain.proceed(chain.request().newBuilder()
                     .header("timezone", TimeZone.getDefault().getID())
-                    .header("locale", MyUtil.getLocalLanguage(context))
+                    .header("locale", Utils.getLocalLanguage(context))
                     .method(original.method(), original.body())
                     .build());
 

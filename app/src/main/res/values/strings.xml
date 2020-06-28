@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">sofTask</string>
     <string name="html_error">check your internet and try again!</string>
+    <string name="network_error">"            \"Check Your network Connection!\";"</string>
 </resources>

@@ -1,14 +1,14 @@
 package com.esmaeel.softask.data.remote;
 
-import com.esmaeel.softask.data.Models.DataModel;
+import com.esmaeel.softask.data.Models.CarsResponseModel;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-interface WebService {
+public interface WebService {
 
-    @GET("users")
-    Single<DataModel> loadChanges(@Query("id") String id);
+    @GET("cars")
+    Single<CarsResponseModel> getCars(@Query("page") Integer pageNumber);
 
 }
