@@ -14,6 +14,9 @@ import com.esmaeel.softask.data.remote.ApiManagerDefault;
 import com.esmaeel.softask.data.remote.WebService;
 import com.esmaeel.softask.databinding.ActivityMainBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class CarsActivity extends AppCompatActivity {
 
     private ActivityMainBinding binder;

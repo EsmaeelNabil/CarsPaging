@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Locale;
 
+import okhttp3.MediaType;
+import okhttp3.Protocol;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
@@ -78,6 +82,31 @@ public class Utils {
         }
 
         return errorMsg;
+    }
+
+    public static Response getCustomResponse(Request request, String errorMessage, Integer statusCode) {
+        ResponseBody message =
+                ResponseBody.create(
+                        MediaType.parse("application/json"),
+                        "{\n" + "" +
+                                "    \"status\": false,\n" +
+                                "    \"msg\": [\n" + errorMessage + "\n" +
+                                "    ]\n" +
+                                "}");
+
+        return new Response.Builder().request(request)
+                .protocol(Protocol.HTTP_1_1)
+                .message(errorMessage)
+                .body(message)
+                .sentRequestAtMillis(-1L)
+                .receivedResponseAtMillis(System.currentTimeMillis())
+                .code(statusCode)
+                .build();
+    }
+
+    private boolean isFakeResponse(Response response) {
+        String header = response.headers().get("Content-Type");
+        return header == null || (header.contains("html"));
     }
 
 

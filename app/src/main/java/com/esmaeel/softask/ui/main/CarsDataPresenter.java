@@ -4,6 +4,8 @@ import com.esmaeel.softask.Utils.Utils;
 import com.esmaeel.softask.data.Models.CarsResponseModel;
 import com.esmaeel.softask.data.remote.WebService;
 
+import javax.inject.Inject;
+
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -19,6 +21,7 @@ public class CarsDataPresenter {
             bag.clear();
     }
 
+//    @Inject
     public CarsDataPresenter(CarsViewModel viewModel) {
         this.viewModel = viewModel;
         bag = new CompositeDisposable();

@@ -7,6 +7,7 @@ import com.esmaeel.softask.BuildConfig;
 import com.esmaeel.softask.Utils.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.orhanobut.logger.Logger;
 
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -47,7 +48,9 @@ public class ApiManagerDefault {
 
     HttpLoggingInterceptor getLoggingInterceptor() {
         if (BuildConfig.DEBUG) {
-            return new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+            return new HttpLoggingInterceptor(message ->
+                    Logger.t("OK_HTTP_LOGGER").i(message))
+                    .setLevel(HttpLoggingInterceptor.Level.BODY);
         } else {
             return new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE);
         }

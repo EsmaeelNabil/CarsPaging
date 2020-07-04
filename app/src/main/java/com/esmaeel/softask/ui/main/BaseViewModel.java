@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-class BaseViewModel extends ViewModel {
+public class BaseViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> isLoadingM = new MutableLiveData<>();
 
